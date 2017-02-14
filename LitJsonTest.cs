@@ -2,10 +2,11 @@
 using System.Collections;
 using LitJson;
 using System.IO;
-using Assets.Script.PsdRebuilder;
+using PsdRebuilder;
 using System;
 using UnityEngine.UI;
 using UnityEditor;
+using Psd2UGUI;
 
 public class LitJsonTest : MonoBehaviour {
 
@@ -26,15 +27,12 @@ public class LitJsonTest : MonoBehaviour {
 
     private void CreatePanel()
     {
-        StreamReader sr = new StreamReader("D:/code/PsdParser/ArtProject/UIGenerator/Assets/Resources/Data/Button.json");
-        string content = sr.ReadToEnd();
-        PsdNode root = JsonMapper.ToObject<PsdNode>(content);
-        PanelCreator.Instance.Create(root);
+        PanelCreator.Instance.Create("D:/code/PsdParser/ArtProject/UIGenerator/Assets/Resources/Data/Button.json");
         //string rootContent = RebuildJson(root, 0);
         //Debug.LogError(rootContent);
     }
 
-    private string RebuildJson(PsdNode root, int depth)
+    private string RebuildJson(BaseNode root, int depth)
     {
         string prefix = string.Empty;
         for(int i = 0; i < depth; i++)
