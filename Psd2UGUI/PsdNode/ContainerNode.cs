@@ -11,6 +11,7 @@ namespace Psd2UGUI
         public override void Build(Transform parent)
         {
             GameObject go = CreateGameObject();
+            this.gameObject = go;
             Transform transform = go.transform;
             transform.SetParent(parent, false);
             int length = Children.Length;

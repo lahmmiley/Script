@@ -28,10 +28,11 @@ namespace PsdRebuilder
 
         public void Create(string path)
         {
-            StreamReader sr = new StreamReader("D:/code/PsdParser/ArtProject/UIGenerator/Assets/Resources/Data/Button.json");
+            StreamReader sr = new StreamReader("D:/code/PsdParser/ArtProject/UIGenerator/Assets/Resources/Data/BattlePreparePanel.json");
             string content = sr.ReadToEnd();
             JsonData jsonData = JsonMapper.ToObject(content);
             BaseNode root = CreateNodeTree(jsonData);
+            //Debug.LogError(root.GetJson());
             GameObject goParent = GameObject.Find("Layer");
             root.Build(goParent.transform);
         }
@@ -39,6 +40,7 @@ namespace PsdRebuilder
         private BaseNode CreateNodeTree(JsonData jsonData)
         {
             BaseNode node = NodeFactory.Create(jsonData);
+            node.ProcessStruct(jsonData);
             if(jsonData.Keys.Contains(BaseNode.FIELD_CHILDREN))
             {
                 int length = jsonData[BaseNode.FIELD_CHILDREN].Count;

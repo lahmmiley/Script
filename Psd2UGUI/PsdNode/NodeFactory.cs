@@ -20,6 +20,9 @@ namespace Psd2UGUI
                 case "image":
                     result = new ImageNode(jsonData);
                     break;
+                case "scrollview":
+                    result = new ScrollViewNode(jsonData);
+                    break;
                 default:
                     result = new ContainerNode();
                     break;

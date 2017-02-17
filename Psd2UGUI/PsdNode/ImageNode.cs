@@ -18,7 +18,7 @@ namespace Psd2UGUI
             if(MultiplceState(jsonData))
             {
                 this.NormalName = jsonData[FIELD_CHILDREN][0][FIELD_CHILDREN][0][FIELD_NAME].ToString();
-                this.OverName = jsonData[FIELD_CHILDREN][1][FIELD_CHILDREN][0][FIELD_NAME].ToString();
+                //this.OverName = jsonData[FIELD_CHILDREN][1][FIELD_CHILDREN][0][FIELD_NAME].ToString();
             }
             else
             {
@@ -44,11 +44,13 @@ namespace Psd2UGUI
             transform.SetParent(parent, false);
 
             Image image = go.AddComponent<Image>();
-            Texture2D texture = Resources.Load("IMAGE/" + this.NormalName) as Texture2D;
+            //TODO
+            Texture2D texture = Resources.Load("IMAGE/BattlePreparePanel/" + this.NormalName) as Texture2D;
             RectTransform rect = go.GetComponent<RectTransform>();
             Sprite normalSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 1));
             image.sprite = normalSprite;
-            if(this.OverName != string.Empty)
+            if(false)
+            //if(this.OverName != string.Empty)
             {
                 Selectable selectable = go.AddComponent<Selectable>();
                 selectable.targetGraphic = image;
@@ -56,9 +58,9 @@ namespace Psd2UGUI
                 SpriteState spriteState = new SpriteState();
                 spriteState.highlightedSprite = normalSprite;
 
-                //Texture2D overTexture = Resources.Load("IMAGE/" + this.OverName) as Texture2D;
-                //Sprite overSprite = Sprite.Create(overTexture, new Rect(10, 10, overTexture.width - 10, overTexture.height - 10), new Vector2(0, 1));
-                Sprite overSprite = Resources.Load("IMAGE/" + this.OverName, typeof(Sprite)) as Sprite;
+                Texture2D overTexture = Resources.Load("IMAGE/" + this.OverName) as Texture2D;
+                Sprite overSprite = Sprite.Create(overTexture, new Rect(0, 0, overTexture.width, overTexture.height), new Vector2(0, 1));
+                //Sprite overSprite = Resources.Load("IMAGE/" + this.OverName, typeof(Sprite)) as Sprite;
                 spriteState.pressedSprite = overSprite;
                 selectable.spriteState = spriteState;
             }
