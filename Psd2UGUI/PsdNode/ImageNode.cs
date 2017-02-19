@@ -1,4 +1,5 @@
 ﻿using LitJson;
+using PsdRebuilder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,66 +9,53 @@ using UnityEngine.UI;
 
 namespace Psd2UGUI
 {
-    public class ImageNode : BaseNode
+    public class ImageNode : AtomNode
     {
-        public string NormalName = string.Empty;
-        public string OverName = string.Empty;
-
-        public ImageNode(JsonData jsonData)
+        //叫ProcessStruct不是很好，感觉只是处理结构
+        public override void ProcessStruct(JsonData jsonData)
         {
-            if(MultiplceState(jsonData))
-            {
-                this.NormalName = jsonData[FIELD_CHILDREN][0][FIELD_CHILDREN][0][FIELD_NAME].ToString();
-                //this.OverName = jsonData[FIELD_CHILDREN][1][FIELD_CHILDREN][0][FIELD_NAME].ToString();
-            }
-            else
-            {
-                this.NormalName = jsonData[FIELD_NAME].ToString();
-            }
+            SetState(jsonData);
         }
-
-        private bool MultiplceState(JsonData jsonData)
-        {
-            if(jsonData.Keys.Contains(FIELD_CHILDREN))
-            {
-                return true;
-            }
-            return false;
-        }
-
-
 
         public override void Build(Transform parent)
         {
-            GameObject go = CreateGameObject();
-            Transform transform = go.transform;
-            transform.SetParent(parent, false);
+            GameObject go = CreateGameObject(parent);
 
             Image image = go.AddComponent<Image>();
-            //TODO
-            Texture2D texture = Resources.Load("IMAGE/BattlePreparePanel/" + this.NormalName) as Texture2D;
-            RectTransform rect = go.GetComponent<RectTransform>();
-            Sprite normalSprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 1));
+            Sprite normalSprite = Resources.Load(
+                string.Format("IMAGE/{0}/{1}", PanelCreator.Instance.CurrentName, stateDict[STATE_NORMAL]),
+                typeof(Sprite)) as Sprite;
             image.sprite = normalSprite;
-            if(false)
-            //if(this.OverName != string.Empty)
+            if(stateDict.Count > 1)
             {
                 Selectable selectable = go.AddComponent<Selectable>();
                 selectable.targetGraphic = image;
                 selectable.transition = Selectable.Transition.SpriteSwap;
-                SpriteState spriteState = new SpriteState();
-                spriteState.highlightedSprite = normalSprite;
 
-                Texture2D overTexture = Resources.Load("IMAGE/" + this.OverName) as Texture2D;
-                Sprite overSprite = Sprite.Create(overTexture, new Rect(0, 0, overTexture.width, overTexture.height), new Vector2(0, 1));
-                //Sprite overSprite = Resources.Load("IMAGE/" + this.OverName, typeof(Sprite)) as Sprite;
-                spriteState.pressedSprite = overSprite;
+                SpriteState spriteState = new SpriteState();
                 selectable.spriteState = spriteState;
+                foreach(string state in stateDict.Keys)
+                {
+                    Sprite sprite = Resources.Load(
+                        string.Format("IMAGE/{0}/{1}", PanelCreator.Instance.CurrentName, stateDict[state]),
+                        typeof(Sprite)) as Sprite;
+                    switch(state)
+                    {
+                        case STATE_NORMAL:
+                            spriteState.highlightedSprite = sprite;
+                            break;
+                        case STATE_OVER:
+                            spriteState.pressedSprite= sprite;
+                            break;
+                        case STATE_DISABLE:
+                            spriteState.disabledSprite= sprite;
+                            break;
+                    }
+
+                }
             }
 
-            RectTransform parentRect = parent.GetComponent<RectTransform>();
-            Vector3 parentAnchoredPosition = parentRect.anchoredPosition3D;
-            rect.anchoredPosition3D = rect.anchoredPosition3D - parentAnchoredPosition;
+            AdjustPosition(go, parent);
         }
     }
 }

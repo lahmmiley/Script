@@ -6,7 +6,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Script
+namespace Tool
 {
     public class AtlasMaker
     {

@@ -10,25 +10,10 @@ namespace Psd2UGUI
 {
     public class ScrollViewNode : ContainerNode
     {
-        public ScrollViewNode(JsonData jsonData)
-        {
-        }
-
         public override void ProcessStruct(JsonData jsonData)
         {
-            JsonData mask = null;
-            int maskIndex = -1;
-            for (int i = 0; i < jsonData[BaseNode.FIELD_CHILDREN].Count; i++)
-            {
-                JsonData child = jsonData[BaseNode.FIELD_CHILDREN][i];
-                // mask TODO
-                if(child[BaseNode.FIELD_NAME].ToString().ToLower() == "mask")
-                {
-                    mask = child;
-                    maskIndex = i;
-                }
-            }
-
+            int maskIndex = FindIndexByName(jsonData, MaskNode.MASK);
+            JsonData mask = jsonData[BaseNode.FIELD_CHILDREN][maskIndex];
             JsonData jArray = new JsonData();
             for (int i = 0; i < jsonData[BaseNode.FIELD_CHILDREN].Count; i++)
             {
@@ -39,12 +24,11 @@ namespace Psd2UGUI
                 }
             }
             mask[BaseNode.FIELD_CHILDREN] = jArray;
-            mask[BaseNode.FIELD_TYPE] = "container";
+            mask[BaseNode.FIELD_TYPE] = MaskNode.MASK;
 
             jsonData[BaseNode.FIELD_CHILDREN].Clear();
             jsonData[BaseNode.FIELD_CHILDREN].Add(mask);
         }
-
 
         public override void Build(Transform parent)
         {
@@ -55,7 +39,6 @@ namespace Psd2UGUI
             GameObject goMask = transform.FindChild("mask").gameObject;
             GameObject goContent = transform.FindChild("mask/Content").gameObject;
             AddScrollRect(goMask, goContent);
-            AddMaskImage(goMask);
             AddLayoutComponent(goContent);
         }
 
@@ -66,17 +49,26 @@ namespace Psd2UGUI
             scrollRect.viewport = goMask.GetComponent<RectTransform>();
         }
 
-        private void AddMaskImage(GameObject goMask)
-        {
-            goMask.AddComponent<Image>();
-            Mask mask = goMask.AddComponent<Mask>();
-            mask.showMaskGraphic = false;
-        }
 
         private void AddLayoutComponent(GameObject goContent)
         {
             goContent.AddComponent<HorizontalLayoutGroup>();
             goContent.AddComponent<ContentSizeFitter>();
+        }
+
+        private int FindIndexByName(JsonData jsonData, string name)
+        {
+            int result = -1;
+            for (int i = 0; i < jsonData[BaseNode.FIELD_CHILDREN].Count; i++)
+            {
+                JsonData child = jsonData[BaseNode.FIELD_CHILDREN][i];
+                if(child[BaseNode.FIELD_NAME].ToString().ToLower() == MaskNode.MASK)
+                {
+                    result = i;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }

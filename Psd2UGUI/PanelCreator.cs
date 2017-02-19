@@ -26,13 +26,16 @@ namespace PsdRebuilder
         }
         private PanelCreator(){ }
 
-        public void Create(string path)
+        public string CurrentName;
+
+        public void Create(string name)
         {
-            StreamReader sr = new StreamReader("D:/code/PsdParser/ArtProject/UIGenerator/Assets/Resources/Data/BattlePreparePanel.json");
+            CurrentName = name;
+            StreamReader sr = new StreamReader(string.Format("Assets/Resources/Data/{0}.json", name));
             string content = sr.ReadToEnd();
             JsonData jsonData = JsonMapper.ToObject(content);
             BaseNode root = CreateNodeTree(jsonData);
-            //Debug.LogError(root.GetJson());
+            Debug.LogError(root.GetJson());
             GameObject goParent = GameObject.Find("Layer");
             root.Build(goParent.transform);
         }

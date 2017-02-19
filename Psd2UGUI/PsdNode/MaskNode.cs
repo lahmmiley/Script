@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LitJson;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Psd2UGUI
 {
-    public class ContainerNode : BaseNode
+    public class MaskNode : BaseNode
     {
+        public const string MASK = "mask";
+
         public override void Build(Transform parent)
         {
             GameObject go = CreateGameObject(parent);
-            this.gameObject = go;
+            go.AddComponent<Image>();
+            Mask mask = go.AddComponent<Mask>();
+            mask.showMaskGraphic = false;
             int length = Children.Length;
             for (int i = length - 1; i >= 0; i--)
             {
                 Children[i].Build(go.transform);
             }
 
-            //重新计算坐标
             AdjustPosition(go, parent);
         }
     }

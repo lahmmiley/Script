@@ -27,7 +27,7 @@ namespace Psd2UGUI
 
         protected GameObject gameObject;
 
-        protected GameObject CreateGameObject()
+        protected GameObject CreateGameObject(Transform parent)
         {
             GameObject go = new GameObject();
             go.name = Name;
@@ -38,6 +38,7 @@ namespace Psd2UGUI
             rect.anchorMin = new Vector2(0, 1);
             rect.sizeDelta = new Vector2(Width, Height);
             rect.anchoredPosition3D = new Vector3(X, -Y, 0);
+            go.transform.SetParent(parent, false);
             return go;
         }
 
@@ -55,6 +56,27 @@ namespace Psd2UGUI
                 }
             }
             return result;
+        }
+
+        protected void AdjustPosition(GameObject go, Transform parent)
+        {
+            RectTransform parentRect = parent.GetComponent<RectTransform>();
+            //root节点的父节点没有 parentRect
+            if(parentRect != null)
+            {
+                Vector3 parentAnchoredPosition = parentRect.anchoredPosition3D;
+                RectTransform rect = go.GetComponent<RectTransform>();
+                rect.anchoredPosition3D = rect.anchoredPosition3D - parentAnchoredPosition;
+            }
+        }
+
+        protected bool HaveChildren(JsonData jsonData)
+        {
+            if(jsonData.Keys.Contains(FIELD_CHILDREN))
+            {
+                return true;
+            }
+            return false;
         }
 
         public virtual void ProcessStruct(JsonData jsonData)

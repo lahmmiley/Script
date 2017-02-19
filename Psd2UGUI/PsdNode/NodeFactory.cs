@@ -11,17 +11,20 @@ namespace Psd2UGUI
         public static BaseNode Create(JsonData jsonData)
         {
             BaseNode result;
-            string typeStr = jsonData["Type"].ToString().ToLower();
+            string typeStr = jsonData[BaseNode.FIELD_TYPE].ToString().ToLower();
             switch(typeStr)
             {
                 case "text":
                     result = new TextNode();
                     break;
                 case "image":
-                    result = new ImageNode(jsonData);
+                    result = new ImageNode();
+                    break;
+                case "mask":
+                    result = new MaskNode();
                     break;
                 case "scrollview":
-                    result = new ScrollViewNode(jsonData);
+                    result = new ScrollViewNode();
                     break;
                 default:
                     result = new ContainerNode();
