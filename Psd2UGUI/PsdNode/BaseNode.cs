@@ -42,6 +42,22 @@ namespace Psd2UGUI
             return go;
         }
 
+        //TODO 这个接口不好
+        protected GameObject CreateGameObject(JsonData jsonData, Transform parent)
+        {
+            GameObject go = new GameObject();
+            go.name = Name;
+            RectTransform rect = go.AddComponent<RectTransform>();
+            rect.localScale = Vector3.one;
+            rect.pivot = new Vector2(0, 1);
+            rect.anchorMax = new Vector2(0, 1);
+            rect.anchorMin = new Vector2(0, 1);
+            rect.sizeDelta = new Vector2((int)jsonData[FIELD_WIDTH], (int)jsonData[FIELD_HEIGHT]);
+            rect.anchoredPosition3D = new Vector3((int)jsonData[FIELD_X], -(int)jsonData[FIELD_Y], 0);
+            go.transform.SetParent(parent, false);
+            return go;
+        }
+
         public string GetJson(int depth = 0)
         {
             string result = string.Empty;

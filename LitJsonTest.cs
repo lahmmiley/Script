@@ -26,8 +26,8 @@ public class LitJsonTest : MonoBehaviour {
 
     private void CreatePanel()
     {
-        //PanelCreator.Instance.Create("BattlePreparePanel");
-        PanelCreator.Instance.Create("Button");
+        PanelCreator.Instance.Create("BattlePreparePanel");
+        //PanelCreator.Instance.Create("Button");
     }
 
 }

@@ -26,6 +26,12 @@ namespace Psd2UGUI
                 case "scrollview":
                     result = new ScrollViewNode();
                     break;
+                case "togglegroup":
+                    result = new ToggleGroupNode();
+                    break;
+                case "toggle":
+                    result = new ToggleNode();
+                    break;
                 default:
                     result = new ContainerNode();
                     break;
