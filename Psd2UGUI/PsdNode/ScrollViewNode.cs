@@ -37,7 +37,16 @@ namespace Psd2UGUI
             Transform transform = gameObject.GetComponent<Transform>(); 
             //TODO
             GameObject goMask = transform.FindChild("mask").gameObject;
-            GameObject goContent = transform.FindChild("mask/Content").gameObject;
+            GameObject goContent = null;
+            //TODO
+            if(transform.FindChild("mask/content") != null)
+            {
+                goContent = transform.FindChild("mask/content").gameObject;
+            }
+            else
+            {
+                goContent = transform.FindChild("mask/Content").gameObject;
+            }
             AddScrollRect(goMask, goContent);
             AddLayoutComponent(goContent);
         }

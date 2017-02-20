@@ -12,10 +12,13 @@ namespace Psd2UGUI
         {
             GameObject go = CreateGameObject(parent);
             this.gameObject = go;
-            int length = Children.Length;
-            for (int i = length - 1; i >= 0; i--)
+            if(Children != null)
             {
-                Children[i].Build(go.transform);
+                int length = Children.Length;
+                for (int i = length - 1; i >= 0; i--)
+                {
+                    Children[i].Build(go.transform);
+                }
             }
 
             //重新计算坐标

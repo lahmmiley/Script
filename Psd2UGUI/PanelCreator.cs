@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,9 @@ namespace PsdRebuilder
         public void Create(string name)
         {
             CurrentName = name;
+
+            //FormatSprite();
+            
             StreamReader sr = new StreamReader(string.Format("Assets/Resources/Data/{0}.json", name));
             string content = sr.ReadToEnd();
             JsonData jsonData = JsonMapper.ToObject(content);
@@ -38,6 +42,22 @@ namespace PsdRebuilder
             Debug.LogError(root.GetJson());
             GameObject goParent = GameObject.Find("Layer");
             root.Build(goParent.transform);
+        }
+
+        private void FormatSprite()
+        {
+            string folderPath = "Assets/Resources/Image/" + CurrentName + "/";
+            DirectoryInfo direction = new DirectoryInfo(folderPath);
+            FileInfo[] files = direction.GetFiles("*.png", SearchOption.AllDirectories);
+            for(int i = 0; i < files.Length; i++)
+            {
+                FileInfo file = files[i];
+                string path = "Assets/Resources/Image/" + CurrentName + "/" + file.Name;
+                TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
+                textureImporter.textureType = TextureImporterType.Sprite;
+                textureImporter.mipmapEnabled = false;
+                AssetDatabase.ImportAsset(path);
+            }
         }
 
         private BaseNode CreateNodeTree(JsonData jsonData)

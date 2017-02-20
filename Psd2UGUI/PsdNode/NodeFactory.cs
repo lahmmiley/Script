@@ -23,6 +23,9 @@ namespace Psd2UGUI
                 case "mask":
                     result = new MaskNode();
                     break;
+                case "button":
+                    result = new ButtonNode();
+                    break;
                 case "scrollview":
                     result = new ScrollViewNode();
                     break;
