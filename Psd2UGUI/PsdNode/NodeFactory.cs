@@ -35,6 +35,9 @@ namespace Psd2UGUI
                 case "toggle":
                     result = new ToggleNode();
                     break;
+                case "list":
+                    result = new ListNode();
+                    break;
                 default:
                     result = new ContainerNode();
                     break;

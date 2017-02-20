@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using UIModule;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,9 +40,13 @@ namespace PsdRebuilder
             string content = sr.ReadToEnd();
             JsonData jsonData = JsonMapper.ToObject(content);
             BaseNode root = CreateNodeTree(jsonData);
-            Debug.LogError(root.GetJson());
+            //Debug.LogError(root.GetJson());
             GameObject goParent = GameObject.Find("Layer");
             root.Build(goParent.transform);
+            //TODO
+            GameObject goRoot = goParent.transform.FindChild("root").gameObject;
+            goRoot.GetComponent<RectTransform>().anchoredPosition = new Vector2(-945f, 616f);
+            goRoot.AddComponent<BattlePreparePanel>();
         }
 
         private void FormatSprite()

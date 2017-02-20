@@ -62,7 +62,8 @@ namespace Psd2UGUI
         {
             string result = string.Empty;
             string prefix = new string(' ', depth * 4);
-            result += prefix + "Name:" + Name + "   Type:" + Type + "\n";
+            
+            result += prefix + "Name:" + Name + "   Type:" + GetType().ToString() + "\n";
             if(Children != null)
             {
                 for(int i = 0; i < Children.Length; i++)
