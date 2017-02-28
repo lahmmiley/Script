@@ -45,8 +45,8 @@ namespace PsdRebuilder
             root.Build(goParent.transform);
             //TODO
             GameObject goRoot = goParent.transform.FindChild("root").gameObject;
-            goRoot.GetComponent<RectTransform>().anchoredPosition = new Vector2(-945f, 616f);
-            goRoot.AddComponent<BattlePreparePanel>();
+            goRoot.GetComponent<RectTransform>().anchoredPosition = new Vector2(-945f, 540f);
+            //goRoot.AddComponent<BattlePreparePanel>();
         }
 
         private void FormatSprite()

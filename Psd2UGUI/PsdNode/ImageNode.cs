@@ -11,6 +11,7 @@ namespace Psd2UGUI
 {
     public class ImageNode : AtomNode
     {
+        //TODO
         //叫ProcessStruct不是很好，感觉只是处理结构
         public override void ProcessStruct(JsonData jsonData)
         {
