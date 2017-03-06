@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#define LAHM_RELEASE
+using UnityEngine;
 using System.Collections;
 using LitJson;
 using System.IO;
@@ -8,10 +9,17 @@ using UnityEngine.UI;
 using UnityEditor;
 using Psd2UGUI;
 
+
 public class LitJsonTest : MonoBehaviour {
 
 	void Start ()
     {
+#if LAHM_DEBUG
+        Debug.LogError("debug");
+#elif LAHM_RELEASE
+        Debug.LogError("release");
+#endif
+
         CreatePanel();
         //LoadImage();
     }

@@ -36,7 +36,7 @@ namespace PsdRebuilder
 
             //FormatSprite();
             
-            StreamReader sr = new StreamReader(string.Format("Assets/Resources/Data/{0}.json", name));
+            StreamReader sr = new StreamReader(string.Format("Assets/UI/Data/{0}.json", name));
             string content = sr.ReadToEnd();
             JsonData jsonData = JsonMapper.ToObject(content);
             BaseNode root = CreateNodeTree(jsonData);
@@ -44,9 +44,13 @@ namespace PsdRebuilder
             GameObject goParent = GameObject.Find("Layer");
             root.Build(goParent.transform);
             //TODO
+            //居中
             GameObject goRoot = goParent.transform.FindChild("root").gameObject;
-            goRoot.GetComponent<RectTransform>().anchoredPosition = new Vector2(-945f, 540f);
-            //goRoot.AddComponent<BattlePreparePanel>();
+            RectTransform rectRoot = goRoot.GetComponent<RectTransform>();
+            rectRoot.anchorMin = Vector2.one * 0.5f;
+            rectRoot.anchorMax = Vector2.one * 0.5f;
+            rectRoot.pivot = Vector2.one * 0.5f;
+            rectRoot.anchoredPosition = Vector2.zero;
         }
 
         private void FormatSprite()
