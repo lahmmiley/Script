@@ -13,17 +13,18 @@ namespace Tool
         [MenuItem("Psd2UGUI/Window")]
         static void Init()
         {
-            Rect rect = new Rect(100, 0, 500, 200);
+            Rect rect = new Rect(800, 0, 400, 200);
             UIGeneratorWindow window = (UIGeneratorWindow)EditorWindow.GetWindowWithRect<UIGeneratorWindow>(rect, true, "yes");
             window.Show();
         }
 
-        private string _tips;
+        private string _errorMessage;
         private Object _jsonFile;
 
         private void OnGUI()
         {
-            _jsonFile = EditorGUILayout.ObjectField("添加Json文件", _jsonFile, typeof(TextAsset), false, null);
+            _jsonFile = EditorGUILayout.ObjectField(_jsonFile, typeof(TextAsset), false, null);
+            _errorMessage = "请选择Json文件";
             if(_jsonFile != null)
             {
                 string path = AssetDatabase.GetAssetPath(_jsonFile);
@@ -31,31 +32,18 @@ namespace Tool
                 {
                     if(GUILayout.Button("生成", GUILayout.Width(100)))
                     {
-                        string fileName = GetFileName(path);
-                        TextureFormater.GenerateDebugSources(path, fileName);
+                        DevelopResourcesGenerator.Generate(path);
+                        _errorMessage = "生成成功";
                     }
-
-                    //Debug.LogError(fileName);
                 }
                 else
                 {
-                    _tips = "<color=#FF0000>选择的文件格式并非Json</color>";
                     _jsonFile = null;
+                    _errorMessage = "<color=#FF0000>选择的文件格式并非Json文件</color>";
                 }
             }
-            else
-            {
-                _tips = "请选择Json文件";
-            }
 
-            EditorGUILayout.LabelField(_tips);
-        }
-
-        private string GetFileName(string path)
-        {
-            int startIndex = path.LastIndexOf('/') + 1;
-            int endIndex = path.LastIndexOf('.');
-            return path.Substring(startIndex, endIndex - startIndex);
+            EditorGUILayout.LabelField(_errorMessage);
         }
     }
 }

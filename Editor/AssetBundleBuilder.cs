@@ -15,11 +15,5 @@ namespace Tool
 
             BuildPipeline.BuildAssetBundles("Assets/AssetBundles", new AssetBundleBuild[1] { assetBundle }, BuildAssetBundleOptions.ForceRebuildAssetBundle, BuildTarget.StandaloneWindows64);
         }
-
-        [MenuItem("MyMenu/Load AssetBundle")]
-        static private void LoadAssetBundle()
-        {
-            GameObject image = GameObject.Find("Image");
-        }
     }
 }
