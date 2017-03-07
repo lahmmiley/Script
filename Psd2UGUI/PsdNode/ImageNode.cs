@@ -13,14 +13,35 @@ namespace Psd2UGUI
 {
     public class ImageNode : AtomNode
     {
+        private string _psdName;
+        private bool _hasParam = false;
+
         //TODO
         //叫ProcessStruct不是很好，感觉只是处理结构
-
-        
-
-
         public override void ProcessStruct(JsonData jsonData)
         {
+            //这块的处理很差
+            if(jsonData.Keys.Contains(FIELD_CHILDREN))
+            {
+                for(int i = 0; i < jsonData[FIELD_CHILDREN].Count; i++)
+                {
+                    JsonData child = jsonData[FIELD_CHILDREN][i];
+                    _psdName = child[FIELD_CHILDREN][0][BaseNode.FIELD_BELONG_PSD].ToString();
+                    if(child[FIELD_CHILDREN][0].Keys.Contains(BaseNode.FIELD_PARAM))
+                    {
+                        _hasParam = true;
+                    }
+                    break;
+                }
+            }
+            else
+            {
+                _psdName = jsonData[BaseNode.FIELD_BELONG_PSD].ToString();
+                if(jsonData.Keys.Contains(BaseNode.FIELD_PARAM))
+                {
+                    _hasParam = true;
+                }
+            }
             SetState(jsonData);
         }
 
@@ -29,7 +50,11 @@ namespace Psd2UGUI
             GameObject go = CreateGameObject(parent);
 
             Image image = go.AddComponent<Image>();
-            image.sprite = AssetLoader.LoadSprite(PanelCreator.Instance.CurrentName, stateDict[STATE_NORMAL]);
+            image.sprite = AssetLoader.LoadSprite(_psdName, stateDict[STATE_NORMAL]);
+            if(_hasParam)
+            {
+                image.type = Image.Type.Sliced;
+            }
             //Sprite normalSprite = Resources.Load(
             //    string.Format("IMAGE/{0}/{1}", PanelCreator.Instance.CurrentName, stateDict[STATE_NORMAL]),
             //    typeof(Sprite)) as Sprite;

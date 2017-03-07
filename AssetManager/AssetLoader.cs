@@ -17,6 +17,7 @@ namespace AssetManager
             //string[] splits = name.Split(_splitChar);
             //string panelName = splits[0];
             //string spriteName = splits[1];
+            //Debug.LogError(string.Format("Sprite/{0}/{1}", panelName, spriteName));
             return Resources.Load<GameObject>(string.Format("Sprite/{0}/{1}", panelName, spriteName)).GetComponent<SpriteRenderer>().sprite;
         }
     }

@@ -17,6 +17,7 @@ namespace Psd2UGUI
         public const string FIELD_HEIGHT = "Height";
         public const string FIELD_CHILDREN = "Children";
         public const string FIELD_PARAM = "Param";
+        public const string FIELD_BELONG_PSD = "BelongPsd";
 
         public string Name;
         public string Type;

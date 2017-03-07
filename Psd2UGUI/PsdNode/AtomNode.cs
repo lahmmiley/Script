@@ -13,13 +13,6 @@ namespace Psd2UGUI
         public const string STATE_OVER = "over";
         public const string STATE_DISABLE = "disable";
 
-        //public enum State
-        //{
-        //    Normal = 1,
-        //    Over = 2,
-        //    Disable = 3,
-        //}
-
         protected Dictionary<string, string> stateDict;
         protected void SetState(JsonData jsonData)
         {
