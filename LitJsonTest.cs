@@ -15,12 +15,11 @@ public class LitJsonTest : MonoBehaviour {
 	void Start ()
     {
 #if LAHM_DEBUG
-        Debug.LogError("debug");
+        //Debug.LogError("debug");
 #elif LAHM_RELEASE
-        Debug.LogError("release");
+        //Debug.LogError("release");
 #endif
-
-        CreatePanel();
+        //CreatePanel();
         //LoadImage();
     }
 

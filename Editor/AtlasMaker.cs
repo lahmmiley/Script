@@ -23,7 +23,7 @@ namespace Tool
             Texture2D atlas = new Texture2D(2048, 2048);
             List<Texture2D> list = new List<Texture2D>();
 
-            DirectoryInfo rootDirInfo = new DirectoryInfo(Application.dataPath + "/Resources/Image/BattlePreparePanel/");
+            DirectoryInfo rootDirInfo = new DirectoryInfo(Application.dataPath + "/UI/Image/Common/");
             //foreach (DirectoryInfo dirInfo in rootDirInfo.GetDirectories())
             {
                 foreach (FileInfo pngFile in rootDirInfo.GetFiles("*.png", SearchOption.AllDirectories))
@@ -50,7 +50,7 @@ namespace Tool
             atlas = AtlasOptimizer.OptimizeAtlas(atlas, rects);
             SaveTexture(atlas);
 
-            string pngPath = Application.dataPath + "/Resources/Image/b.png";
+            string pngPath = Application.dataPath + "/Resources/b.png";
             string assetPath1 = pngPath.Substring(pngPath.IndexOf("Assets"));
             CreateMultipleModeSpriteImporter(assetPath1, rects, atlas.width, atlas.height);
             AssetDatabase.ImportAsset(assetPath1, ImportAssetOptions.ForceUncompressedImport);
@@ -59,7 +59,7 @@ namespace Tool
         private static void SaveTexture(Texture2D texture)
         {
             byte[] pngData = texture.EncodeToPNG();
-            string pngPath = Application.dataPath + "/Resources/Image/b.png";
+            string pngPath = Application.dataPath + "/Resources/b.png";
             File.WriteAllBytes(pngPath, pngData);
             string assetPath = pngPath.Substring(pngPath.IndexOf("Assets"));
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUncompressedImport);
@@ -145,6 +145,11 @@ namespace Tool
                     GameObject.DestroyImmediate(go);
                 }
             }
+        }
+
+        void OnPostprocessTexture(Texture2D texture)
+        {
+            Debug.LogError(AssetDatabase.GetAssetPath(texture));
         }
     }
 }

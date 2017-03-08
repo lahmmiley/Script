@@ -49,7 +49,7 @@ namespace Tool
             string typeStr = jsonData[BaseNode.FIELD_TYPE].ToString().ToLower();
             if (typeStr == "image")
             {
-                if (jsonData[BaseNode.FIELD_PARAM] != null)
+                if(jsonData.Keys.Contains(BaseNode.FIELD_PARAM))
                 {
                     string name = jsonData[BaseNode.FIELD_NAME].ToString();
                     string param = jsonData[BaseNode.FIELD_PARAM].ToString();
@@ -71,7 +71,6 @@ namespace Tool
 
         private static void FormatTexture(string pngName, string assetPath, string imageFolderName)
         {
-            Debug.LogError(pngName);
             TextureImporter textureImporter = AssetImporter.GetAtPath(assetPath) as TextureImporter;
             textureImporter.textureType = TextureImporterType.Sprite;
             textureImporter.mipmapEnabled = false;
