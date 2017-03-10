@@ -16,19 +16,19 @@ namespace Tool
 
         public static void Generate(string jsonPath)
         {
-            string jsonFileName = FileTool.GetFileName(jsonPath);
+            string jsonFileName = FileUtility.GetFileName(jsonPath);
 
             Read9SliceParam(jsonPath);
 
             Texture2D atlas = new Texture2D(2048, 2048);
             List<Texture2D> list = new List<Texture2D>();
 
-            string imageDir = FileTool.RemovePostfix(jsonPath.Replace("Data", "Image"));
+            string imageDir = FileUtility.RemovePostfix(jsonPath.Replace("Data", "Image"));
             DirectoryInfo dirInfo = new DirectoryInfo(imageDir);
             List<string> nameList = new List<string>();
             foreach (FileInfo pngFile in dirInfo.GetFiles("*.png", SearchOption.TopDirectoryOnly))
             {
-                string pngAssetPath = FileTool.AllPath2AssetPath(pngFile.FullName);
+                string pngAssetPath = FileUtility.AllPath2AssetPath(pngFile.FullName);
                 CreateTextureImporter(pngAssetPath, true);
                 AssetDatabase.ImportAsset(pngAssetPath, ImportAssetOptions.ForceUncompressedImport);
                 //TODO
@@ -43,7 +43,7 @@ namespace Tool
             Rect[] rects = atlas.PackTextures(list.ToArray(), 5);
             atlas = AtlasOptimizer.OptimizeAtlas(atlas, rects);
             string outputPath = Application.dataPath + "/Atlas/" + jsonFileName + ".png";
-            string assetPath = FileTool.AllPath2AssetPath(outputPath);
+            string assetPath = FileUtility.AllPath2AssetPath(outputPath);
             AssetDatabase.DeleteAsset(assetPath);
             SaveTexture(atlas, outputPath);
             AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUncompressedImport);
@@ -62,6 +62,7 @@ namespace Tool
             assetBundle.assetBundleName = jsonFileName;
 
             //依赖关系值得考虑
+            //TODO
             BuildPipeline.BuildAssetBundles("Assets/AssetBundles", new AssetBundleBuild[1] { assetBundle }, BuildAssetBundleOptions.ForceRebuildAssetBundle, BuildTarget.StandaloneWindows64);
         }
 

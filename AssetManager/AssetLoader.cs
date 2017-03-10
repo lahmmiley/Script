@@ -1,4 +1,4 @@
-﻿#define LAHM_RELEASE
+﻿#define LAHM_DEBUG
 using PsdRebuilder;
 using System;
 using System.Collections;
@@ -32,7 +32,6 @@ namespace AssetManager
 #if LAHM_DEBUG
             return Resources.Load<GameObject>(string.Format("Sprite/{0}/{1}", panelName, spriteName)).GetComponent<SpriteRenderer>().sprite;
 #elif LAHM_RELEASE
-            Debug.LogError("loadSprite:" + spriteName);
             return _dict[spriteName];
 #endif
             return null;
@@ -50,12 +49,12 @@ namespace AssetManager
             UnityEngine.Object[] list = asssetBundle.LoadAllAssets();
             for(int i = 0; i < list.Length; i++)
             {
-                Debug.LogError("name:" + list[i].name);
+                //Debug.LogError("name:" + list[i].name);
                 _dict.Add(list[i].name, list[i] as Sprite);
             }
             if(panelName == "BattlePreparePanel")
             {
-                PanelCreator.Instance.Create("BattlePreparePanel");
+                //PanelCreator.Instance.Create("BattlePreparePanel");
             }
         }
     }

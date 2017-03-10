@@ -1,14 +1,7 @@
 ﻿using LitJson;
 using Psd2UGUI;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using UIModule;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PsdRebuilder
 {
@@ -34,8 +27,6 @@ namespace PsdRebuilder
         {
             CurrentName = name;
 
-            //FormatSprite();
-            
             StreamReader sr = new StreamReader(string.Format("Assets/UI/Data/{0}.json", name));
             string content = sr.ReadToEnd();
             JsonData jsonData = JsonMapper.ToObject(content);
@@ -46,27 +37,12 @@ namespace PsdRebuilder
             //TODO
             //居中
             GameObject goRoot = goParent.transform.FindChild("root").gameObject;
+            goRoot.name = name;
             RectTransform rectRoot = goRoot.GetComponent<RectTransform>();
             rectRoot.anchorMin = Vector2.one * 0.5f;
             rectRoot.anchorMax = Vector2.one * 0.5f;
             rectRoot.pivot = Vector2.one * 0.5f;
             rectRoot.anchoredPosition = Vector2.zero;
-        }
-
-        private void FormatSprite()
-        {
-            string folderPath = "Assets/Resources/Image/" + CurrentName + "/";
-            DirectoryInfo direction = new DirectoryInfo(folderPath);
-            FileInfo[] files = direction.GetFiles("*.png", SearchOption.AllDirectories);
-            for(int i = 0; i < files.Length; i++)
-            {
-                FileInfo file = files[i];
-                string path = "Assets/Resources/Image/" + CurrentName + "/" + file.Name;
-                TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
-                textureImporter.textureType = TextureImporterType.Sprite;
-                textureImporter.mipmapEnabled = false;
-                AssetDatabase.ImportAsset(path);
-            }
         }
 
         private BaseNode CreateNodeTree(JsonData jsonData)

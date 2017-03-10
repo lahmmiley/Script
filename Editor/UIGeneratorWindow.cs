@@ -32,8 +32,8 @@ namespace Tool
                 {
                     if(GUILayout.Button("生成", GUILayout.Width(100)))
                     {
-                        RuntimeResourcesGenerator.Generate(path);
-                        //DevelopResourcesGenerator.Generate(path);
+                        //RuntimeResourcesGenerator.Generate(path);
+                        DevelopResourcesGenerator.Generate(path);
                         _errorMessage = "生成成功";
                     }
                 }
