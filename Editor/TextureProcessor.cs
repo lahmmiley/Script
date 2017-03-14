@@ -60,23 +60,23 @@ namespace Tool
 
         private static void TraversalTree(JsonData jsonData, Dictionary<string, Vector4> sliceDict)
         {
-            string typeStr = jsonData[BaseNode.FIELD_TYPE].ToString().ToLower();
-            if ((typeStr == "image") && (jsonData.Keys.Contains(BaseNode.FIELD_PARAM)))
+            string typeStr = jsonData[NodeField.TYPE].ToString().ToLower();
+            if ((typeStr == "image") && (jsonData.Keys.Contains(NodeField.PARAM)))
             {
-                string name = jsonData[BaseNode.FIELD_NAME].ToString();
+                string name = jsonData[NodeField.NAME].ToString();
                 if(!sliceDict.ContainsKey(name))
                 {
-                    string param = jsonData[BaseNode.FIELD_PARAM].ToString();
+                    string param = jsonData[NodeField.PARAM].ToString();
                     string[] splitArray = param.Split(',');
                     Vector4 v4 = new Vector4(float.Parse(splitArray[2]), float.Parse(splitArray[1]), float.Parse(splitArray[3]), float.Parse(splitArray[0]));//0:上 1:下 2:左 3:右
                     sliceDict.Add(name, v4);
 
                 }
             }
-            if (jsonData.Keys.Contains(BaseNode.FIELD_CHILDREN))
+            if (jsonData.Keys.Contains(NodeField.CHILDREN))
             {
-                int length = jsonData[BaseNode.FIELD_CHILDREN].Count;
-                JsonData children = jsonData[BaseNode.FIELD_CHILDREN];
+                int length = jsonData[NodeField.CHILDREN].Count;
+                JsonData children = jsonData[NodeField.CHILDREN];
                 for (int i = 0; i < length; i++)
                 {
                     TraversalTree(children[i], sliceDict);

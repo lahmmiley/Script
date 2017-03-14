@@ -50,11 +50,11 @@ namespace Psd2UGUI
         {
             BaseNode node = NodeFactory.Create(jsonData);
             node.ProcessStruct(jsonData);
-            if(jsonData.Keys.Contains(BaseNode.FIELD_CHILDREN))
+            if(jsonData.Keys.Contains(NodeField.CHILDREN))
             {
-                int length = jsonData[BaseNode.FIELD_CHILDREN].Count;
+                int length = jsonData[NodeField.CHILDREN].Count;
                 node.Children = new BaseNode[length];
-                JsonData children = jsonData[BaseNode.FIELD_CHILDREN];
+                JsonData children = jsonData[NodeField.CHILDREN];
                 for(int i = 0; i < length; i++)
                 {
                     node.Children[i] =  CreateNodeTree(children[i]);
