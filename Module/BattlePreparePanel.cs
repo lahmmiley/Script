@@ -5,7 +5,7 @@ using System.Text;
 using UIComponent;
 using UnityEngine.EventSystems;
 
-namespace UIModule
+namespace Module
 {
     public class BattlePreparePanel : LContainer
     {

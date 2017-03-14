@@ -1,7 +1,7 @@
 ﻿using LitJson;
 using Psd2UGUI;
 using System.IO;
-using UIModule;
+using Module;
 using UnityEngine;
 
 namespace PsdRebuilder

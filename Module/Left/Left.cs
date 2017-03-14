@@ -5,7 +5,7 @@ using System.Text;
 using UIComponent;
 using UnityEngine.UI;
 
-namespace UIModule
+namespace Module
 {
     public class Left : LContainer
     {
