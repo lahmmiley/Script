@@ -1,6 +1,7 @@
 ﻿using LitJson;
 using Psd2UGUI;
 using System.IO;
+using UIModule;
 using UnityEngine;
 
 namespace PsdRebuilder
@@ -43,6 +44,8 @@ namespace PsdRebuilder
             rectRoot.anchorMax = Vector2.one * 0.5f;
             rectRoot.pivot = Vector2.one * 0.5f;
             rectRoot.anchoredPosition = Vector2.zero;
+
+            //goRoot.AddComponent<BattlePreparePanel>();
         }
 
         private BaseNode CreateNodeTree(JsonData jsonData)

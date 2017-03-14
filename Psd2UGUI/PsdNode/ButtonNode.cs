@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UIComponent;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +14,15 @@ namespace Psd2UGUI
         {
             base.Build(parent);
 
-            Button button = this.gameObject.AddComponent<Button>();
+            LButton button = this.gameObject.AddComponent<LButton>();
             button.targetGraphic = this.gameObject.transform.GetComponentInChildren<Image>();
-            //button.transition = Selectable.Transition.None;
+            button.transition = Selectable.Transition.None;
             button.onClick.AddListener(ButtonOnClick);
         }
 
         private void ButtonOnClick()
         {
-            Debug.LogError("你好，我是阿弟的啊嫲");
+            Debug.LogError("OnClick!");
         }
     }
 }

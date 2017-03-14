@@ -25,10 +25,6 @@ namespace AssetManager
         private static char[] _splitChar = new char[] { '.' };
         public static Sprite LoadSprite(string panelName, string spriteName)
         {
-            //string[] splits = name.Split(_splitChar);
-            //string panelName = splits[0];
-            //string spriteName = splits[1];
-            //Debug.LogError(string.Format("Sprite/{0}/{1}", panelName, spriteName));
 #if LAHM_DEBUG
             return Resources.Load<GameObject>(string.Format("Sprite/{0}/{1}", panelName, spriteName)).GetComponent<SpriteRenderer>().sprite;
 #elif LAHM_RELEASE

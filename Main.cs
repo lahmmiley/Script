@@ -4,7 +4,7 @@ using PsdRebuilder;
 
 public class Main : MonoBehaviour
 {
-	void Start ()
+    void Start ()
     {
         PanelCreator.Instance.Create("BattlePreparePanel");
     }
