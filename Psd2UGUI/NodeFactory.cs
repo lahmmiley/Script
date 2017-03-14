@@ -10,28 +10,28 @@ namespace Psd2UGUI
             string typeStr = jsonData[NodeField.TYPE].ToString().ToLower();
             switch(typeStr)
             {
-                case "text":
+                case NodeType.TEXT:
                     result = new TextNode();
                     break;
-                case "image":
+                case NodeType.IMAGE:
                     result = new ImageNode();
                     break;
-                case "mask":
+                case NodeType.MASK:
                     result = new MaskNode();
                     break;
-                case "button":
+                case NodeType.BUTTON:
                     result = new ButtonNode();
                     break;
-                case "scrollview":
+                case NodeType.SCROLL_VIEW:
                     result = new ScrollViewNode();
                     break;
-                case "togglegroup":
+                case NodeType.TOGGLE_GROUP:
                     result = new ToggleGroupNode();
                     break;
-                case "toggle":
+                case NodeType.TOGGLE:
                     result = new ToggleNode();
                     break;
-                case "list":
+                case NodeType.LIST:
                     result = new ListNode();
                     break;
                 default:
