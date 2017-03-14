@@ -1,24 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LitJson;
+﻿using LitJson;
 using UnityEngine;
 
 namespace Psd2UGUI
 {
     public abstract class BaseNode
     {
-        public const string FIELD_NAME = "Name";
-        public const string FIELD_TYPE = "Type";
-        public const string FIELD_X = "X";
-        public const string FIELD_Y = "Y";
-        public const string FIELD_WIDTH = "Width";
-        public const string FIELD_HEIGHT = "Height";
-        public const string FIELD_CHILDREN = "Children";
-        public const string FIELD_PARAM = "Param";
-        public const string FIELD_BELONG_PSD = "BelongPsd";
-
         public string Name;
         public string Type;
         public int X;
@@ -54,8 +40,8 @@ namespace Psd2UGUI
             rect.pivot = new Vector2(0, 1);
             rect.anchorMax = new Vector2(0, 1);
             rect.anchorMin = new Vector2(0, 1);
-            rect.sizeDelta = new Vector2((int)jsonData[FIELD_WIDTH], (int)jsonData[FIELD_HEIGHT]);
-            rect.anchoredPosition3D = new Vector3((int)jsonData[FIELD_X], -(int)jsonData[FIELD_Y], 0);
+            rect.sizeDelta = new Vector2((int)jsonData[NodeField.WIDTH], (int)jsonData[NodeField.HEIGHT]);
+            rect.anchoredPosition3D = new Vector3((int)jsonData[NodeField.X], -(int)jsonData[NodeField.Y], 0);
             go.transform.SetParent(parent, false);
             return go;
         }
@@ -91,7 +77,7 @@ namespace Psd2UGUI
 
         protected bool HaveChildren(JsonData jsonData)
         {
-            if(jsonData.Keys.Contains(FIELD_CHILDREN))
+            if(jsonData.Keys.Contains(NodeField.CHILDREN))
             {
                 return true;
             }

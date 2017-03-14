@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LitJson;
+﻿using LitJson;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,28 +6,25 @@ namespace Psd2UGUI
 {
     public class TextNode : AtomNode
     {
-        public const string FIELD_SIZE = "Size";
-        public const string FIELD_TEXT = "Text";
-
         private string _content = "未定义";
         private int _size;
         private TextAnchor _anchor = TextAnchor.UpperLeft;
 
         public override void ProcessStruct(JsonData jsonData)
         {
-            if (jsonData.Keys.Contains(FIELD_SIZE))
+            if (jsonData.Keys.Contains(NodeField.SIZE))
             {
-                _size = (int)jsonData[FIELD_SIZE];
+                _size = (int)jsonData[NodeField.SIZE];
             }
 
-            if(jsonData.Keys.Contains(FIELD_TEXT))
+            if(jsonData.Keys.Contains(NodeField.TEXT))
             {
-                _content = jsonData[FIELD_TEXT].ToString();
+                _content = jsonData[NodeField.TEXT].ToString();
             }
 
-            if(jsonData.Keys.Contains(FIELD_PARAM))
+            if(jsonData.Keys.Contains(NodeField.PARAM))
             {
-                string param = jsonData[FIELD_PARAM].ToString();
+                string param = jsonData[NodeField.PARAM].ToString();
                 if(param.IndexOf("Left") != -1)
                 {
                     _anchor = TextAnchor.UpperLeft;

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LitJson;
+﻿using LitJson;
 using UnityEngine;
 using UnityEngine.UI;
-using PsdRebuilder;
 
 namespace Psd2UGUI
 {
@@ -18,14 +13,14 @@ namespace Psd2UGUI
         public override void ProcessStruct(JsonData jsonData)
         {
             //TODO 优化
-            JsonData jsonImage = jsonData[FIELD_CHILDREN][0];
-            _normalName = jsonImage[FIELD_CHILDREN][1][FIELD_CHILDREN][0][FIELD_NAME].ToString();
+            JsonData jsonImage = jsonData[NodeField.CHILDREN][0];
+            _normalName = jsonImage[NodeField.CHILDREN][1][NodeField.CHILDREN][0][NodeField.NAME].ToString();
             //Debug.LogError(_normalName);
-            JsonData normalChild = jsonImage[FIELD_CHILDREN][0];
+            JsonData normalChild = jsonImage[NodeField.CHILDREN][0];
             //TODO 删除的方法不好
-            jsonImage[FIELD_CHILDREN].Clear();
-            jsonImage[FIELD_CHILDREN].Add(normalChild);
-            //Debug.LogError(jsonImage[FIELD_CHILDREN].Count);
+            jsonImage[NodeField.CHILDREN].Clear();
+            jsonImage[NodeField.CHILDREN].Add(normalChild);
+            //Debug.LogError(jsonImage[NodeField.CHILDREN].Count);
         }
 
         public override void Build(Transform parent)

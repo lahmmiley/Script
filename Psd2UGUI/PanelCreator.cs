@@ -1,10 +1,8 @@
 ﻿using LitJson;
-using Psd2UGUI;
 using System.IO;
-using Module;
 using UnityEngine;
 
-namespace PsdRebuilder
+namespace Psd2UGUI
 {
     public class PanelCreator
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LitJson;
+﻿using LitJson;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,21 +9,21 @@ namespace Psd2UGUI
         public override void ProcessStruct(JsonData jsonData)
         {
             int maskIndex = FindIndexByName(jsonData, MaskNode.MASK);
-            JsonData mask = jsonData[BaseNode.FIELD_CHILDREN][maskIndex];
+            JsonData mask = jsonData[NodeField.CHILDREN][maskIndex];
             JsonData jArray = new JsonData();
-            for (int i = 0; i < jsonData[BaseNode.FIELD_CHILDREN].Count; i++)
+            for (int i = 0; i < jsonData[NodeField.CHILDREN].Count; i++)
             {
-                JsonData child = jsonData[BaseNode.FIELD_CHILDREN][i];
+                JsonData child = jsonData[NodeField.CHILDREN][i];
                 if(i != maskIndex)
                 {
                     jArray.Add(child);
                 }
             }
-            mask[BaseNode.FIELD_CHILDREN] = jArray;
-            mask[BaseNode.FIELD_TYPE] = MaskNode.MASK;
+            mask[NodeField.CHILDREN] = jArray;
+            mask[NodeField.TYPE] = MaskNode.MASK;
 
-            jsonData[BaseNode.FIELD_CHILDREN].Clear();
-            jsonData[BaseNode.FIELD_CHILDREN].Add(mask);
+            jsonData[NodeField.CHILDREN].Clear();
+            jsonData[NodeField.CHILDREN].Add(mask);
         }
 
         public override void Build(Transform parent)
@@ -68,10 +64,10 @@ namespace Psd2UGUI
         private int FindIndexByName(JsonData jsonData, string name)
         {
             int result = -1;
-            for (int i = 0; i < jsonData[BaseNode.FIELD_CHILDREN].Count; i++)
+            for (int i = 0; i < jsonData[NodeField.CHILDREN].Count; i++)
             {
-                JsonData child = jsonData[BaseNode.FIELD_CHILDREN][i];
-                if(child[BaseNode.FIELD_NAME].ToString().ToLower() == MaskNode.MASK)
+                JsonData child = jsonData[NodeField.CHILDREN][i];
+                if(child[NodeField.NAME].ToString().ToLower() == MaskNode.MASK)
                 {
                     result = i;
                     break;

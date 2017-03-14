@@ -1,8 +1,4 @@
 ﻿using LitJson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Psd2UGUI
 {
@@ -11,7 +7,7 @@ namespace Psd2UGUI
         public static BaseNode Create(JsonData jsonData)
         {
             BaseNode result;
-            string typeStr = jsonData[BaseNode.FIELD_TYPE].ToString().ToLower();
+            string typeStr = jsonData[NodeField.TYPE].ToString().ToLower();
             switch(typeStr)
             {
                 case "text":
@@ -42,11 +38,11 @@ namespace Psd2UGUI
                     result = new ContainerNode();
                     break;
             }
-            result.Name = jsonData[BaseNode.FIELD_NAME].ToString();
-            result.Width = (int)jsonData[BaseNode.FIELD_WIDTH];
-            result.Height = (int)jsonData[BaseNode.FIELD_HEIGHT];
-            result.X = (int)jsonData[BaseNode.FIELD_X];
-            result.Y = (int)jsonData[BaseNode.FIELD_Y];
+            result.Name = jsonData[NodeField.NAME].ToString();
+            result.Width = (int)jsonData[NodeField.WIDTH];
+            result.Height = (int)jsonData[NodeField.HEIGHT];
+            result.X = (int)jsonData[NodeField.X];
+            result.Y = (int)jsonData[NodeField.Y];
             return result;
         }
     }

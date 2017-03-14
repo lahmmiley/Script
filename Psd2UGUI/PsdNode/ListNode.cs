@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UIComponent;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Psd2UGUI
 {

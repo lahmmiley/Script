@@ -1,13 +1,7 @@
 ﻿using AssetManager;
 using LitJson;
-using PsdRebuilder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
-using Object = UnityEngine.Object;
 
 namespace Psd2UGUI
 {
@@ -21,13 +15,13 @@ namespace Psd2UGUI
         public override void ProcessStruct(JsonData jsonData)
         {
             //这块的处理很差
-            if(jsonData.Keys.Contains(FIELD_CHILDREN))
+            if(jsonData.Keys.Contains(NodeField.CHILDREN))
             {
-                for(int i = 0; i < jsonData[FIELD_CHILDREN].Count; i++)
+                for(int i = 0; i < jsonData[NodeField.CHILDREN].Count; i++)
                 {
-                    JsonData child = jsonData[FIELD_CHILDREN][i];
-                    _psdName = child[FIELD_CHILDREN][0][BaseNode.FIELD_BELONG_PSD].ToString();
-                    if(child[FIELD_CHILDREN][0].Keys.Contains(BaseNode.FIELD_PARAM))
+                    JsonData child = jsonData[NodeField.CHILDREN][i];
+                    _psdName = child[NodeField.CHILDREN][0][NodeField.BELONG_PSD].ToString();
+                    if(child[NodeField.CHILDREN][0].Keys.Contains(NodeField.PARAM))
                     {
                         _hasParam = true;
                     }
@@ -36,8 +30,8 @@ namespace Psd2UGUI
             }
             else
             {
-                _psdName = jsonData[BaseNode.FIELD_BELONG_PSD].ToString();
-                if(jsonData.Keys.Contains(BaseNode.FIELD_PARAM))
+                _psdName = jsonData[NodeField.BELONG_PSD].ToString();
+                if(jsonData.Keys.Contains(NodeField.PARAM))
                 {
                     _hasParam = true;
                 }

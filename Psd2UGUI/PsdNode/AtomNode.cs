@@ -17,19 +17,19 @@ namespace Psd2UGUI
         protected void SetState(JsonData jsonData)
         {
             stateDict = new Dictionary<string, string>();
-            if(jsonData.Keys.Contains(FIELD_CHILDREN))
+            if(jsonData.Keys.Contains(NodeField.CHILDREN))
             {
-                for(int i = 0; i < jsonData[FIELD_CHILDREN].Count; i++)
+                for(int i = 0; i < jsonData[NodeField.CHILDREN].Count; i++)
                 {
-                    JsonData child = jsonData[FIELD_CHILDREN][i];
-                    string state = child[FIELD_NAME].ToString().ToLower();
-                    string name = child[FIELD_CHILDREN][0][FIELD_NAME].ToString();
+                    JsonData child = jsonData[NodeField.CHILDREN][i];
+                    string state = child[NodeField.NAME].ToString().ToLower();
+                    string name = child[NodeField.CHILDREN][0][NodeField.NAME].ToString();
                     stateDict.Add(state, name);
                 }
             }
             else
             {
-                stateDict.Add(STATE_NORMAL, jsonData[FIELD_NAME].ToString());
+                stateDict.Add(STATE_NORMAL, jsonData[NodeField.NAME].ToString());
             }
             
         }
