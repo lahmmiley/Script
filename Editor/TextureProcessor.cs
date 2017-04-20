@@ -1,15 +1,27 @@
 ﻿using LitJson;
-using Psd2UGUI;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
 
 namespace Tool
 {
+    public class NodeField
+    {
+        public const string NAME = "Name";
+        public const string TYPE = "Type";
+        public const string X = "X";
+        public const string Y = "Y";
+        public const string WIDTH = "Width";
+        public const string HEIGHT = "Height";
+        public const string CHILDREN = "Children";
+        public const string PARAM = "Param";
+        public const string BELONG_PSD = "BelongPsd";
+        public const string SIZE = "Size";
+        public const string TEXT = "Text";
+    }
+
     public class TextureProcessor : AssetPostprocessor
     {
         private static Dictionary<string, Dictionary<string, Vector4>> _jsonDict = new Dictionary<string, Dictionary<string, Vector4>>();

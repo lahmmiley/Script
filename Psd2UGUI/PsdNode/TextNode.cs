@@ -4,10 +4,11 @@ using UnityEngine.UI;
 
 namespace Psd2UGUI
 {
-    public class TextNode : AtomNode
+    public class TextNode : BaseNode
     {
         private string _content = "未定义";
         private int _size;
+        private Color _color;
         private TextAnchor _anchor = TextAnchor.UpperLeft;
 
         public override void ProcessStruct(JsonData jsonData)
@@ -20,6 +21,11 @@ namespace Psd2UGUI
             if(jsonData.Keys.Contains(NodeField.TEXT))
             {
                 _content = jsonData[NodeField.TEXT].ToString();
+            }
+
+            if(jsonData.Keys.Contains(NodeField.COLOR))
+            {
+                _color = jsonData[NodeField.COLOR].ToString().ToColor();
             }
 
             if(jsonData.Keys.Contains(NodeField.PARAM))
@@ -47,6 +53,7 @@ namespace Psd2UGUI
             text.font = Resources.Load("Font/arial") as Font;
             text.fontSize = _size;
             text.text = _content;
+            text.color = _color;
             //TODO 如果只有一行，就用overflow
             //如果有多行，缺少的宽度就没有影响了
             text.horizontalOverflow = HorizontalWrapMode.Overflow;

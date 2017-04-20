@@ -21,9 +21,9 @@ namespace Psd2UGUI
             go.name = Name;
             RectTransform rect = go.AddComponent<RectTransform>();
             rect.localScale = Vector3.one;
-            rect.pivot = new Vector2(0, 1);
-            rect.anchorMax = new Vector2(0, 1);
-            rect.anchorMin = new Vector2(0, 1);
+            rect.pivot = Vector2.up;
+            rect.anchorMax = Vector2.up;
+            rect.anchorMin = Vector2.up;
             rect.sizeDelta = new Vector2(Width, Height);
             rect.anchoredPosition3D = new Vector3(X, -Y, 0);
             go.transform.SetParent(parent, false);
@@ -37,9 +37,9 @@ namespace Psd2UGUI
             go.name = Name;
             RectTransform rect = go.AddComponent<RectTransform>();
             rect.localScale = Vector3.one;
-            rect.pivot = new Vector2(0, 1);
-            rect.anchorMax = new Vector2(0, 1);
-            rect.anchorMin = new Vector2(0, 1);
+            rect.pivot = Vector2.up;
+            rect.anchorMax = Vector2.up;
+            rect.anchorMin = Vector2.up;
             rect.sizeDelta = new Vector2((int)jsonData[NodeField.WIDTH], (int)jsonData[NodeField.HEIGHT]);
             rect.anchoredPosition3D = new Vector3((int)jsonData[NodeField.X], -(int)jsonData[NodeField.Y], 0);
             go.transform.SetParent(parent, false);
@@ -84,6 +84,7 @@ namespace Psd2UGUI
             return false;
         }
 
+        //拆分开，不少是初始化
         public virtual void ProcessStruct(JsonData jsonData)
         {
         }

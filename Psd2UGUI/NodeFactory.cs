@@ -16,6 +16,9 @@ namespace Psd2UGUI
                 case NodeType.IMAGE:
                     result = new ImageNode();
                     break;
+                case NodeType.IMAGE_FOLDER:
+                    result = new ImageFolderNode();
+                    break;
                 case NodeType.MASK:
                     result = new MaskNode();
                     break;
